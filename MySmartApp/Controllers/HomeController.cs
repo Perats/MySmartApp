@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySmartApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,29 @@ namespace MySmartApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            var model = new List<DevicesViewModel>();
+            var devices = db.DevicesViewModels;
+            //foreach (var item in devices)
+            //{
+            //    model = new DevicesViewModel
+            //    {
+            //        DeviceName = item.DeviceName,
+            //        Id = item.Id,
+            //        DeviceStatus = item.DeviceStatus,
+            //        LastPinDate = item.LastPinDate,
+            //        RoomType = item.RoomType
+            //    };
+            //}
+            return View(devices);
+        }
+
+        [HttpGet]
+        public PartialViewResult TestDialog()
+        {
+            return PartialView();
         }
 
         public ActionResult About()

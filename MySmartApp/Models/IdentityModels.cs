@@ -30,6 +30,6 @@ namespace MySmartApp.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<MySmartApp.Models.DevicesViewModel> DevicesViewModels { get; set; }
+        public DbSet<MySmartApp.Models.DevicesViewModel> DevicesViewModels { get; set; }
     }
 }
