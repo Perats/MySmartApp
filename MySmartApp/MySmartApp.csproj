@@ -181,12 +181,21 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DevicesViewModelsController.cs" />
+    <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909131405342_InitialCreate.cs" />
+    <Compile Include="Migrations\201909131405342_InitialCreate.Designer.cs">
+      <DependentUpon>201909131405342_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909220748315_SmartApp.cs" />
+    <Compile Include="Migrations\201909220748315_SmartApp.Designer.cs">
+      <DependentUpon>201909220748315_SmartApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DeviceStatus.cs" />
     <Compile Include="Models\DevicesViewModel.cs" />
@@ -988,14 +997,18 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\DevicesViewModels\Create.cshtml" />
-    <Content Include="Views\DevicesViewModels\Delete.cshtml" />
-    <Content Include="Views\DevicesViewModels\Details.cshtml" />
-    <Content Include="Views\DevicesViewModels\Edit.cshtml" />
-    <Content Include="Views\DevicesViewModels\Index.cshtml" />
+    <Content Include="Views\Devices\Create.cshtml" />
+    <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\Devices\Details.cshtml" />
+    <Content Include="Views\Devices\Edit.cshtml" />
+    <Content Include="Views\Devices\Index.cshtml" />
+    <Content Include="Views\Bedroom\Index.cshtml" />
+    <Content Include="Views\Home\Devices.cshtml" />
+    <Content Include="Views\Shared\TestDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\Dialog\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1009,6 +1022,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909131405342_InitialCreate.resx">
+      <DependentUpon>201909131405342_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909220748315_SmartApp.resx">
+      <DependentUpon>201909220748315_SmartApp.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

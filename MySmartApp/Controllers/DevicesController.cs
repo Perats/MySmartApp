@@ -10,7 +10,7 @@ using MySmartApp.Models;
 
 namespace MySmartApp.Controllers
 {
-    public class DevicesViewModelsController : Controller
+    public class DevicesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

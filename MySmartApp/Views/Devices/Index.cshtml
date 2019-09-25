@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MySmartApp.Models.DevicesViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card card-default">
+            <h2>Devices List</h2>
+            @Html.ActionLink("Create New", "Create")
+            <button data-dialog="TestDialog">Test</button>
+            <table class="table card-table table-responsive table-responsive-large">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeviceName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastPinDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeviceStatus)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeviceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastPinDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeviceStatus)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Devices", new { id = item.Id }, null) |
+                            @Html.ActionLink("Details", "Details", "Devices", new { id = item.Id }, null) |
+                            @Html.ActionLink("Delete", "Delete", "Devices", new { id = item.Id }, null)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
