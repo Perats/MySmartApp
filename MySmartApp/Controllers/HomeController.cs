@@ -13,8 +13,9 @@ namespace MySmartApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var model = new List<DevicesViewModel>();
-            var devices = db.DevicesViewModels;
+            var model = new HomeModel();
+            model.Devices = db.DevicesViewModels.ToList();
+            model.Rooms = db.Rooms.ToList();
             //foreach (var item in devices)
             //{
             //    model = new DevicesViewModel
@@ -26,7 +27,7 @@ namespace MySmartApp.Controllers
             //        RoomType = item.RoomType
             //    };
             //}
-            return View(devices);
+            return View(model);
         }
 
         [HttpGet]

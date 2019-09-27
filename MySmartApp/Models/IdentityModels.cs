@@ -31,5 +31,9 @@ namespace MySmartApp.Models
         }
 
         public DbSet<MySmartApp.Models.DevicesViewModel> DevicesViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<MySmartApp.Models.Rooms> Rooms { get; set; }
+
+        public System.Data.Entity.DbSet<MySmartApp.Models.Schedule> Schedules { get; set; }
     }
 }
