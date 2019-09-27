@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MySmartApp.Models.DevicesViewModel>
+﻿@model MySmartApp.Models.HomeModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,23 +7,23 @@
     <div class="col-lg-6">
         <div class="card card-default">
             <h2>Devices List</h2>
-            @Html.ActionLink("Create New", "Create")
+            @Html.ActionLink("Create New", "Create", "Devices")
             <button data-dialog="TestDialog">Test</button>
             <table class="table card-table table-responsive table-responsive-large">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.DeviceName)
+                        DeviceName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LastPinDate)
+                        LastPinDate
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DeviceStatus)
+                        DeviceStatus
                     </th>
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model)
+                @foreach (var item in Model.Devices)
                 {
                     <tr>
                         <td>

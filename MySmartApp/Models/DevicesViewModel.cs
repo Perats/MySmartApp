@@ -9,5 +9,7 @@ namespace MySmartApp.Models
         public DateTime LastPinDate { get; set; }
         public DeviceStatus DeviceStatus { get; set; }
         public RoomType RoomType { get; set; }
+        public string Rooms { get; set; }
+        public Schedule Schedule { get; set; }
     }
 }

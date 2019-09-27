@@ -10,116 +10,109 @@ using MySmartApp.Models;
 
 namespace MySmartApp.Controllers
 {
-    public class DevicesController : Controller
+    public class RoomsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: DevicesViewModels
+        // GET: Rooms
         public ActionResult Index()
         {
-            return View(db.DevicesViewModels.ToList());
+            return View(db.Rooms.ToList());
         }
 
-        // GET: DevicesViewModels/Details/5
+        // GET: Rooms/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
-            if (devicesViewModel == null)
+            Rooms rooms = db.Rooms.Find(id);
+            if (rooms == null)
             {
                 return HttpNotFound();
             }
-            return View(devicesViewModel);
+            return View(rooms);
         }
 
-        // GET: DevicesViewModels/Create
+        // GET: Rooms/Create
         public ActionResult Create()
         {
             var model = new HomeModel();
             model.Devices = db.DevicesViewModels.ToList();
             model.Rooms = db.Rooms.ToList();
-            List<string> rooms = new List<string>();
-            foreach (var item in model.Rooms)
-            {
-                rooms.Add(item.Name);
-            }
-            ViewBag.Rooms = rooms;
             return View(model);
         }
 
-        // POST: DevicesViewModels/Create
+        // POST: Rooms/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(DevicesViewModel devicesViewModel)
+        public ActionResult Create([Bind(Include = "Id,Name")] Rooms rooms)
         {
             if (ModelState.IsValid)
             {
-                devicesViewModel.LastPinDate = DateTime.Now;
-                db.DevicesViewModels.Add(devicesViewModel);
+                db.Rooms.Add(rooms);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(devicesViewModel);
+            return View(rooms);
         }
 
-        // GET: DevicesViewModels/Edit/5
+        // GET: Rooms/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
-            if (devicesViewModel == null)
+            Rooms rooms = db.Rooms.Find(id);
+            if (rooms == null)
             {
                 return HttpNotFound();
             }
-            return View(devicesViewModel);
+            return View(rooms);
         }
 
-        // POST: DevicesViewModels/Edit/5
+        // POST: Rooms/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DeviceName,LastPinDate,DeviceStatus")] DevicesViewModel devicesViewModel)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Rooms rooms)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(devicesViewModel).State = EntityState.Modified;
+                db.Entry(rooms).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(devicesViewModel);
+            return View(rooms);
         }
 
-        // GET: DevicesViewModels/Delete/5
+        // GET: Rooms/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
-            if (devicesViewModel == null)
+            Rooms rooms = db.Rooms.Find(id);
+            if (rooms == null)
             {
                 return HttpNotFound();
             }
-            return View(devicesViewModel);
+            return View(rooms);
         }
 
-        // POST: DevicesViewModels/Delete/5
+        // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
-            db.DevicesViewModels.Remove(devicesViewModel);
+            Rooms rooms = db.Rooms.Find(id);
+            db.Rooms.Remove(rooms);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
