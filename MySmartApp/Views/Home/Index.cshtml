@@ -3,82 +3,48 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true">
 
-@*<script>
-        NProgress.configure({ showSpinner: false });
-        NProgress.start();
-    </script>*@
+        <ul class="uk-slider-items uk-grid" >
+            <li class="uk-width-3-4">
+                <div class="uk-panel">
+                    <img src="~/Content/Login/images/sliser_smart9.jpg" alt="">
+                    <div class="uk-position-center uk-panel"></div>
+                </div>
+            </li>
+            <li class="uk-width-3-4">
+                <div class="uk-panel">
+                    <img src="~/Content/Login/images/slider_smart5.jpg" alt="">
+                    <div class="uk-position-center uk-panel"></div>
+                </div>
+            </li>
+            <li class="uk-width-3-4">
+                <div class="uk-panel">
+                    <img src="~/Content/Login/images/slider_smart3.jpg" alt="">
+                    <div class="uk-position-center uk-panel"></div>
+                </div>
+            </li>
+            <li class="uk-width-3-4">
+                <div class="uk-panel">
+                    <img src="~/Content/Login/images/slider_smart7.jpg" alt="">
+                    <div class="uk-position-center uk-panel"></div>
+                </div>
+            </li>
+            <li class="uk-width-3-4">
+                <div class="uk-panel">
+                    <img src="~/Content/Login/images/slider_smart10.jpg" alt="">
+                    <div class="uk-position-center uk-panel"></div>
+                </div>
+            </li>
+        </ul>
 
-<div class="mobile-sticky-body-overlay"></div>
-<!-- Top Statistics -->
-<div class="row">
-    <div class="col-xl-3 col-sm-6">
-        <div class="card card-mini mb-4">
-            <div class="card-body">
-                <h2 class="mb-1">21</h2>
-                <p>Temprature Chart</p>
-                <div class="chartjs-wrapper">
-                    <canvas id="barChart"></canvas>
-                </div>
-            </div>
-        </div>
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
     </div>
-    <div class="col-xl-3 col-sm-6">
-        <div class="card card-mini  mb-4">
-            <div class="card-body">
-                <h2 class="mb-1">45%</h2>
-                <p>Air humidity</p>
-                <div class="chartjs-wrapper">
-                    <canvas id="dual-line"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6">
-        <div class="card card-mini mb-4">
-            <div class="card-body">
-                <h2 class="mb-1">71,503</h2>
-                <p>Some Parametr Chart2</p>
-                <div class="chartjs-wrapper">
-                    <canvas id="area-chart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6">
-        <div class="card card-mini mb-4">
-            <div class="card-body">
-                <h2 class="mb-1">9,503</h2>
-                <p>Some Parametr Chart3</p>
-                <div class="chartjs-wrapper">
-                    <canvas id="line"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@Html.ActionLink("Create New Room", "Create", "Rooms")
-<br/>
-@Html.ActionLink("Create New Schedule", "Create", "Schedules")
-<br/>
 @Html.Partial("~/Views/Devices/Index.cshtml")
+
+@*@Html.Partial("~/Views/Schedules/Index.cshtml")*@
 <div class="row">
-    
+
 </div>
-
-<script>
-    (function () {
-        var updateButton = document.getElementById('updateDetails');
-        var cancelButton = document.getElementById('cancel');
-        var favDialog = document.getElementById('Dialog');
-
-        updateButton.addEventListener('click', function () {
-            favDialog.showModal();
-        });
-
-        cancelButton.addEventListener('click', function () {
-            favDialog.close();
-        });
-
-    })();
-</script>

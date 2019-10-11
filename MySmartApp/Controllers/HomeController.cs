@@ -16,6 +16,7 @@ namespace MySmartApp.Controllers
             var model = new HomeModel();
             model.Devices = db.DevicesViewModels.ToList();
             model.Rooms = db.Rooms.ToList();
+            model.Schedules = db.Schedules.ToList();
             //foreach (var item in devices)
             //{
             //    model = new DevicesViewModel

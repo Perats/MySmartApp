@@ -27,12 +27,17 @@ namespace MySmartApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
-            if (devicesViewModel == null)
+            var devices = db.DevicesViewModels.Where(i => i.Id == id).ToList();
+            if (devices == null)
             {
                 return HttpNotFound();
             }
-            return View(devicesViewModel);
+            var model = new HomeModel();
+            model.Devices = devices;
+            model.Rooms = db.Rooms.ToList();
+            var schedules = db.Schedules.ToList();
+            model.Schedules = schedules.Where(i => i.DeviceName == devices[0].DeviceName).ToList();
+            return View(model);
         }
 
         // GET: DevicesViewModels/Create
@@ -41,7 +46,8 @@ namespace MySmartApp.Controllers
             var model = new HomeModel();
             model.Devices = db.DevicesViewModels.ToList();
             model.Rooms = db.Rooms.ToList();
-            List<string> rooms = new List<string>();
+            model.Schedules = db.Schedules.ToList();
+            var rooms = new List<string>();
             foreach (var item in model.Rooms)
             {
                 rooms.Add(item.Name);
@@ -58,12 +64,16 @@ namespace MySmartApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                devicesViewModel.LastPinDate = DateTime.Now;
-                db.DevicesViewModels.Add(devicesViewModel);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                var room = db.Rooms.Where(_ => _.Name == devicesViewModel.Rooms).ToList();
+                if (room != null)
+                {
+                    devicesViewModel.LastPinDate = DateTime.Now;
+                    devicesViewModel.RoomId = room[0].Id;
+                    db.DevicesViewModels.Add(devicesViewModel);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
             return View(devicesViewModel);
         }
 

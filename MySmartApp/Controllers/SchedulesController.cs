@@ -60,12 +60,18 @@ namespace MySmartApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Schedules.Add(schedule);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                var deviceId = db.DevicesViewModels.Where(_ => _.DeviceName == schedule.DeviceName).ToList();
+                if (deviceId != null)
+                {
+                    schedule.DeviceId = deviceId[0].Id;
+                    db.Schedules.Add(schedule);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+               
             }
 
-            return View(schedule);
+            return View();
         }
 
         // GET: Schedules/Edit/5
