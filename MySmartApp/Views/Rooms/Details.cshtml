@@ -1,27 +1,39 @@
-﻿@model MySmartApp.Models.Rooms
+﻿@model MySmartApp.Models.HomeModel
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="uk-heading-bullet">Details for  @Html.DisplayFor(model => model.Rooms[0].Name)</h2>
 
 <div>
-    <h4>Rooms</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+    @foreach (var item in Model.Devices)
+    {
+        <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+            <div>
+                <div class="uk-card uk-card-hover uk-card-body">
+                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.DeviceName)</h3>
+                    <dl class="uk-description-list uk-description-list-divider">
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => item.LastPinDate)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => item.LastPinDate)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => item.DeviceStatus)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => item.DeviceStatus)
+                        </dd>
+                    </dl>
+                    <ul class="uk-iconnav">
+                        <li><a href="@Url.Action("Details", "Devices", new { id = item.Id })" uk-icon="icon: file-edit"></a></li>
+                        <li><a href="@Url.Action("Delete", "Devices", new { id = item.Id })" uk-icon="icon: trash"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,46 +1,34 @@
-﻿@model IEnumerable<MySmartApp.Models.Schedule>
+﻿@model MySmartApp.Models.HomeModel
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Schedules List</h2>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DeviceId)
+           DeviceName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeviceName)
+           ScheduleName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ScheduleName)
+            StartDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+           EndDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            DeviceStatus
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeviceStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
+            IsActive
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Schedules) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeviceId)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.DeviceName)
         </td>

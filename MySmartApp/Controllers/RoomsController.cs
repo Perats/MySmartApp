@@ -32,7 +32,13 @@ namespace MySmartApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(rooms);
+            var model = new HomeModel();
+            model.Rooms = db.Rooms.Where(i => i.Id == id).ToList();
+            model.Devices = db.DevicesViewModels.Where(i => i.RoomId == id).ToList();
+
+            //var schedules = db.Schedules.ToList();
+            //model.Schedules = schedules.Where(i => i.DeviceName == devices[0].DeviceName).ToList();
+            return View(model);
         }
 
         // GET: Rooms/Create

@@ -5,60 +5,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2 class="uk-heading-bullet">Add new device</h2>
 
-
-@*@using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Devices</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.DeviceName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DeviceName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DeviceName, "", new { @class = "text-danger" })
+<div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            @using (Ajax.BeginForm("Create", null, new AjaxOptions { UpdateTargetId = "results" }, htmlAttributes: new { @class = "uk-form-horizontal .uk-form-width-medium" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Your device name</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input uk-form-width-medium" type="text" name="DeviceName">
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastPinDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastPinDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastPinDate, "", new { @class = "text-danger" })
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-select">Select Room</label>
+                    <div class="uk-form-controls">
+                        @Html.DropDownList("Rooms", ((List<string>)ViewBag.Rooms).Select(m => new SelectListItem { Text = m, Value = m }), htmlAttributes: new { @class = "uk-select uk-form-width-medium" })
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DeviceStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.DeviceStatus, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.DeviceStatus, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
+                <button type="submit" class="uk-button uk-button-primary">Create</button>
+                <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
+            }
         </div>
-    }*@
-@using (Ajax.BeginForm("Create", new AjaxOptions { UpdateTargetId = "results" }))
-{
-
-
-    @Html.DropDownList("Rooms", ((List<string>)ViewBag.Rooms).Select(m => new SelectListItem { Text = m, Value = m }))
-    <input type="text" name="DeviceName"/>
-    <input type="submit" value="Add new DEVICE" />
-}
-
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
 
 @section Scripts {
