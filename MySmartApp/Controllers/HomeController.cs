@@ -1,4 +1,6 @@
-﻿using MySmartApp.Models;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using MySmartApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,14 @@ namespace MySmartApp.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private MongoDBContext dbContext = new MongoDBContext();
         public ActionResult Index()
         {
             var model = new HomeModel();
             model.Devices = db.DevicesViewModels.ToList();
             model.Rooms = db.Rooms.ToList();
             model.Schedules = db.Schedules.ToList();
+            var list = dbContext.DeviceCollection.Find(new BsonDocument()).ToList();
             //foreach (var item in devices)
             //{
             //    model = new DevicesViewModel
