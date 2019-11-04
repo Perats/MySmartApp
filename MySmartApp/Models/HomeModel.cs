@@ -8,7 +8,7 @@ namespace MySmartApp.Models
 {
     public class HomeModel
     {
-        public List<DevicesViewModel> Devices { get; set; }
+        public List<Devices> Devices { get; set; }
         public List<Rooms> Rooms { get; set; }
         public List<Schedule> Schedules { get; set; }
     }

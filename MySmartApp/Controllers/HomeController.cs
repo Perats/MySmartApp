@@ -17,7 +17,7 @@ namespace MySmartApp.Controllers
         public ActionResult Index()
         {
             var model = new HomeModel();
-            model.Devices = db.DevicesViewModels.ToList();
+            model.Devices = db.Devices.ToList();
             model.Rooms = db.Rooms.ToList();
             model.Schedules = db.Schedules.ToList();
             var list = dbContext.DeviceCollection.Find(new BsonDocument()).ToList();

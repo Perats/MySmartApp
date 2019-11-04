@@ -7,13 +7,13 @@ namespace MySmartApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class Migration041101 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Migration041101));
         
         string IMigrationMetadata.Id
         {
-            get { return "201909131405342_InitialCreate"; }
+            get { return "201911040926452_Migration04-11-01"; }
         }
         
         string IMigrationMetadata.Source

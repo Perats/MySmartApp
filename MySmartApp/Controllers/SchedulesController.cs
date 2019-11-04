@@ -39,7 +39,7 @@ namespace MySmartApp.Controllers
         public ActionResult Create()
         {
             var model = new HomeModel();
-            model.Devices = db.DevicesViewModels.ToList();
+            model.Devices = db.Devices.ToList();
             model.Rooms = db.Rooms.ToList();
             model.Schedules = db.Schedules.ToList();
             List<string> devices = new List<string>();
@@ -60,7 +60,7 @@ namespace MySmartApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var deviceId = db.DevicesViewModels.Where(_ => _.DeviceName == schedule.DeviceName).ToList();
+                var deviceId = db.Devices.Where(_ => _.DeviceName == schedule.DeviceName).ToList();
                 if (deviceId != null)
                 {
                     schedule.DeviceId = deviceId[0].Id;

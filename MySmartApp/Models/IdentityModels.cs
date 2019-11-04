@@ -30,10 +30,10 @@ namespace MySmartApp.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<MySmartApp.Models.DevicesViewModel> DevicesViewModels { get; set; }
+        public virtual DbSet<Devices> Devices { get; set; }
 
-        public System.Data.Entity.DbSet<MySmartApp.Models.Rooms> Rooms { get; set; }
+        public virtual DbSet<Rooms> Rooms { get; set; }
 
-        public System.Data.Entity.DbSet<MySmartApp.Models.Schedule> Schedules { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
     }
 }

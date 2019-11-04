@@ -34,7 +34,7 @@ namespace MySmartApp.Controllers
             }
             var model = new HomeModel();
             model.Rooms = db.Rooms.Where(i => i.Id == id).ToList();
-            model.Devices = db.DevicesViewModels.Where(i => i.RoomId == id).ToList();
+            model.Devices = db.Devices.Where(i => i.RoomId == id).ToList();
 
             //var schedules = db.Schedules.ToList();
             //model.Schedules = schedules.Where(i => i.DeviceName == devices[0].DeviceName).ToList();
@@ -45,7 +45,7 @@ namespace MySmartApp.Controllers
         public ActionResult Create()
         {
             var model = new HomeModel();
-            model.Devices = db.DevicesViewModels.ToList();
+            model.Devices = db.Devices.ToList();
             model.Rooms = db.Rooms.ToList();
             return View(model);
         }
