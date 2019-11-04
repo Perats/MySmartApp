@@ -17,7 +17,7 @@ namespace MySmartApp.Controllers
         // GET: DevicesViewModels
         public ActionResult Index()
         {
-            return View(db.DevicesViewModels.ToList());
+            return View(db.Devices.ToList());
         }
 
         // GET: DevicesViewModels/Details/5
@@ -27,7 +27,7 @@ namespace MySmartApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var devices = db.DevicesViewModels.Where(i => i.Id == id).ToList();
+            var devices = db.Devices.Where(i => i.Id == id).ToList();
             if (devices == null)
             {
                 return HttpNotFound();
@@ -44,7 +44,7 @@ namespace MySmartApp.Controllers
         public ActionResult Create()
         {
             var model = new HomeModel();
-            model.Devices = db.DevicesViewModels.ToList();
+            model.Devices = db.Devices.ToList();
             model.Rooms = db.Rooms.ToList();
             model.Schedules = db.Schedules.ToList();
             var rooms = new List<string>();
@@ -60,7 +60,7 @@ namespace MySmartApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(DevicesViewModel devicesViewModel)
+        public ActionResult Create(Devices devicesViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace MySmartApp.Controllers
                 {
                     devicesViewModel.LastPinDate = DateTime.Now;
                     devicesViewModel.RoomId = room[0].Id;
-                    db.DevicesViewModels.Add(devicesViewModel);
+                    db.Devices.Add(devicesViewModel);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
@@ -84,7 +84,7 @@ namespace MySmartApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
+            Devices devicesViewModel = db.Devices.Find(id);
             if (devicesViewModel == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace MySmartApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DeviceName,LastPinDate,DeviceStatus")] DevicesViewModel devicesViewModel)
+        public ActionResult Edit([Bind(Include = "Id,DeviceName,LastPinDate,DeviceStatus")] Devices devicesViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace MySmartApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
+            Devices devicesViewModel = db.Devices.Find(id);
             if (devicesViewModel == null)
             {
                 return HttpNotFound();
@@ -128,8 +128,8 @@ namespace MySmartApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DevicesViewModel devicesViewModel = db.DevicesViewModels.Find(id);
-            db.DevicesViewModels.Remove(devicesViewModel);
+            Devices devicesViewModel = db.Devices.Find(id);
+            db.Devices.Remove(devicesViewModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

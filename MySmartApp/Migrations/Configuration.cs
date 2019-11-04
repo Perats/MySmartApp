@@ -10,7 +10,6 @@ namespace MySmartApp.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MySmartApp.Models.ApplicationDbContext";
         }
 
         protected override void Seed(MySmartApp.Models.ApplicationDbContext context)

@@ -13,44 +13,4 @@
             </li>
         }
     </ul>
-    @*<table class="uk-table uk-table-middle uk-table-divider">
-        <thead>
-            <tr>
-                <th>
-                    Device Name
-                </th>
-                <th>
-                    Last Pin Date
-                </th>
-                <th>
-                    Device Status
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Devices)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.DeviceName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.LastPinDate)</td>
-                    <td>@Html.DisplayFor(modelItem => item.DeviceStatus)</td>
-                    <td>
-                        <div class="uk-button-group">
-                            <button class="uk-button uk-button-default">Actions</button>
-                            <div class="uk-inline">
-                                <button class="uk-button uk-button-default" type="button"><span uk-icon="icon:  triangle-down"></span></button>
-                                <div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-active">@Html.ActionLink("Details", "Details", "Devices", new { id = item.Id }, null)</li>
-                                        <li>@Html.ActionLink("Delete", "Delete", "Devices", new { id = item.Id }, null)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
 </div>
