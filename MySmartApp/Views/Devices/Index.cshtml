@@ -9,7 +9,31 @@
         @foreach (var item in Model.Devices)
         {
             <li>
-                <div class="uk-card uk-card-default uk-card-body">@Html.ActionLink(item.DeviceName, "Details", "Devices", new { id = item.Id }, null)</div>
+                <div class="uk-card uk-card-default uk-card-body">
+                    <h3 class="uk-card-title">
+                        @Html.ActionLink(item.DeviceName, "Details", "Devices", new { id = item.Id }, null)
+                    </h3>
+                    <dl class="uk-description-list uk-description-list-divider">
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => item.Temperature)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => item.Temperature)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => item.Humidity)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => item.Humidity)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => item.DeviceStatus)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => item.DeviceStatus)
+                        </dd>
+                    </dl>
+                </div>
             </li>
         }
     </ul>
