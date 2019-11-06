@@ -2,8 +2,8 @@
 {
     public enum DeviceStatus : byte
     {
-        Waiting = 0,
-        TurnOn = 1,
-        TurnOff = 2
+        TurnOn = 0,
+        TurnOff = 1,
+        Waiting = 2
     }
 }

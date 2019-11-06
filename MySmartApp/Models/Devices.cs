@@ -12,5 +12,7 @@ namespace MySmartApp.Models
         public string Rooms { get; set; }
         public int? RoomId { get; set; }
         public Schedule Schedule { get; set; }
+        public string Temperature { get; set; }
+        public string Humidity { get; set; }
     }
 }

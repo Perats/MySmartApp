@@ -27,9 +27,9 @@
         <dd>
             @Html.DisplayFor(model => model.Devices[0].DeviceStatus)
         </dd>
-        @*<dt>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Devices[0].Id })
-            </dt>*@
+        <dt>
+            @Html.ActionLink((string)ViewBag.Status, "LampAction", "Devices", new { status = (int)ViewBag.Value, id = Model.Devices[0].Id}, null)
+        </dt>
     </dl>
     @foreach (var item in Model.Schedules)
     {
@@ -69,6 +69,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     }
 </div>

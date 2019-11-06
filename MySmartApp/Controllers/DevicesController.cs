@@ -4,8 +4,16 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MQTTnet;
+using MQTTnet.Client;
+using MQTTnet.Client.Options;
 using MySmartApp.Models;
 
 namespace MySmartApp.Controllers
@@ -13,6 +21,7 @@ namespace MySmartApp.Controllers
     public class DevicesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private MongoDBContext dbContext = new MongoDBContext();
 
         // GET: DevicesViewModels
         public ActionResult Index()
@@ -28,7 +37,7 @@ namespace MySmartApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var devices = db.Devices.Where(i => i.Id == id).ToList();
-            if (devices == null)
+           if (devices == null)
             {
                 return HttpNotFound();
             }
@@ -36,6 +45,11 @@ namespace MySmartApp.Controllers
             model.Devices = devices;
             model.Rooms = db.Rooms.ToList();
             var schedules = db.Schedules.ToList();
+            var list = dbContext.DeviceCollection.Find(new BsonDocument()).ToList();
+            var led = list[2].Values.ToList();
+            devices[0].DeviceStatus = (DeviceStatus)led[2].ToInt32();
+            ViewBag.Status = devices[0].DeviceStatus == 0 ? "Turn Off" : "Turn On";
+            ViewBag.Value = devices[0].DeviceStatus == 0 ? 1 : 0;
             model.Schedules = schedules.Where(i => i.DeviceName == devices[0].DeviceName).ToList();
             return View(model);
         }
@@ -106,6 +120,35 @@ namespace MySmartApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(devicesViewModel);
+        }
+
+        public async Task<ActionResult> LampAction(int? status, int id)
+        {
+            var mqttClient = new MqttFactory().CreateMqttClient();
+            var options = new MqttClientOptionsBuilder()
+                   .WithClientId("MvcApp")
+                   .WithTcpServer("localhost", 1884)
+                   .WithKeepAlivePeriod(new TimeSpan(1, 0, 0))
+                   .Build();
+
+            try
+            {
+                await mqttClient.ConnectAsync(options, CancellationToken.None);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            if (mqttClient.IsConnected)
+            {
+                await mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("device/led").Build());
+                await mqttClient.PublishAsync("device/led", Encoding.UTF8.GetBytes(status.ToString()));
+            }
+            var filter = Builders<BsonDocument>.Filter.Eq("Name", "Light");
+            var update = Builders<BsonDocument>.Update.Set("Value", status);
+            var result = await dbContext.DeviceCollection.UpdateOneAsync(filter, update);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: DevicesViewModels/Delete/5

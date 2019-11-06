@@ -21,17 +21,12 @@ namespace MySmartApp.Controllers
             model.Rooms = db.Rooms.ToList();
             model.Schedules = db.Schedules.ToList();
             var list = dbContext.DeviceCollection.Find(new BsonDocument()).ToList();
-            //foreach (var item in devices)
-            //{
-            //    model = new DevicesViewModel
-            //    {
-            //        DeviceName = item.DeviceName,
-            //        Id = item.Id,
-            //        DeviceStatus = item.DeviceStatus,
-            //        LastPinDate = item.LastPinDate,
-            //        RoomType = item.RoomType
-            //    };
-            //}
+            var hum = list[0].Values.ToList();
+            var temp = list[1].Values.ToList();
+            var led = list[2].Values.ToList();
+            model.Devices[0].Temperature = temp[2].ToString();
+            model.Devices[0].DeviceStatus = (DeviceStatus)led[2].ToInt32();
+            model.Devices[0].Humidity = hum[2].ToString();
             return View(model);
         }
 
