@@ -5,71 +5,78 @@
 }
 
 <h2 class="uk-heading-bullet">Details for  @Html.DisplayFor(model => model.Devices[0].DeviceName)</h2>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Devices[0].DeviceName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Devices[0].DeviceName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Devices[0].LastPinDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Devices[0].LastPinDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Devices[0].DeviceStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Devices[0].DeviceStatus)
-        </dd>
-        <dt>
-            @Html.ActionLink((string)ViewBag.Status, "LampAction", "Devices", new { status = (int)ViewBag.Value, id = Model.Devices[0].Id}, null)
-        </dt>
-    </dl>
-    @foreach (var item in Model.Schedules)
-    {
-        <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-            <div>
-                <div class="uk-card uk-card-hover uk-card-body">
-                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.ScheduleName)</h3>
-                    <dl class="uk-description-list uk-description-list-divider">
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => item.ScheduleName)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => item.ScheduleName)
-                        </dd>
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => item.StartDate)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => item.StartDate)
-                        </dd>
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => item.EndDate)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => item.EndDate)
-                        </dd>
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => item.IsActive)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </dd>
-                    </dl>
-                    <ul class="uk-iconnav">
-                        <li><a href="@Url.Action("Details", "Schedule", new { id = item.Id })" uk-icon="icon: file-edit"></a></li>
-                        <li><a href="@Url.Action("Delete", "Schedule", new { id = item.Id })" uk-icon="icon: trash"></a></li>
-                    </ul>
-                </div>
+<hr />
+<div class="uk-card uk-card-default uk-card-body">
+    <table class="uk-table uk-table-hover uk-table-divider">
+        <tbody>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Devices[0].DeviceName)</td>
+                <td>@Html.DisplayFor(model => model.Devices[0].DeviceName)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Devices[0].LastPinDate)</td>
+                <td>@Html.DisplayFor(model => model.Devices[0].LastPinDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Devices[0].DeviceStatus)</td>
+                <td>@Html.DisplayFor(model => model.Devices[0].DeviceStatus)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Devices[0].Temperature)</td>
+                <td>@Html.DisplayFor(model => model.Devices[0].Temperature)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Devices[0].Humidity)</td>
+                <td>@Html.DisplayFor(model => model.Devices[0].Humidity)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Devices[0].Rooms)</td>
+                <td>@Html.DisplayFor(model => model.Devices[0].Rooms)</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink((string)ViewBag.Status, "LampAction", "Devices", new { status = (int)ViewBag.Value, id = Model.Devices[0].Id }, new { @class = "uk-button uk-button-danger" })
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
+        @foreach (var item in Model.Schedules)
+        {
+            <div class="uk-card uk-card-hover uk-card-body">
+                <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.ScheduleName)</h3>
+                <dl class="uk-description-list uk-description-list-divider">
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => item.ScheduleName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.ScheduleName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => item.StartDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => item.EndDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => item.IsActive)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </dd>
+                </dl>
+                <ul class="uk-iconnav">
+                    <li><a href="@Url.Action("Details", "Schedules", new { id = item.Id })" uk-icon="icon: file-edit"></a></li>
+                    <li><a href="@Url.Action("Delete", "Schedules", new { id = item.Id })" uk-icon="icon: trash"></a></li>
+                </ul>
             </div>
-
-        </div>
-    }
+        }
+    </div>
 </div>

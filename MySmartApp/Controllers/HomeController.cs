@@ -20,6 +20,18 @@ namespace MySmartApp.Controllers
             model.Devices = db.Devices.ToList();
             model.Rooms = db.Rooms.ToList();
             model.Schedules = db.Schedules.ToList();
+            var rooms = new List<string>();
+            foreach (var item in model.Rooms)
+            {
+                rooms.Add(item.Name);
+            }
+            ViewBag.Rooms = rooms;
+            List<string> devices = new List<string>();
+            foreach (var item in model.Devices)
+            {
+                devices.Add(item.DeviceName);
+            }
+            ViewBag.Devices = devices;
             var list = dbContext.DeviceCollection.Find(new BsonDocument()).ToList();
             var hum = list[0].Values.ToList();
             var temp = list[1].Values.ToList();

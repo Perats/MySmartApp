@@ -1,7 +1,7 @@
 ﻿@model MySmartApp.Models.HomeModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Rooms";
 }
 
 <h2 class="uk-heading-bullet">Details for  @Html.DisplayFor(model => model.Rooms[0].Name)</h2>
@@ -13,7 +13,7 @@
         <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
             <div>
                 <div class="uk-card uk-card-hover uk-card-body">
-                    <h3 class="uk-card-title">@Html.DisplayFor(modelItem => item.DeviceName)</h3>
+                    <h3 class="uk-card-title"> @Html.ActionLink(item.DeviceName, "Details", "Devices", new { id = item.Id }, null)</h3>
                     <dl class="uk-description-list uk-description-list-divider">
                         <dt>
                             @Html.DisplayNameFor(modelItem => item.LastPinDate)

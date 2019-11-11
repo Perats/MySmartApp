@@ -5,24 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="uk-heading-bullet">Add new room</h2>
-<div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-    <div>
-        <div class="uk-card uk-card-default uk-card-body">
-            @using (Ajax.BeginForm("Create", new AjaxOptions { UpdateTargetId = "results" }))
-            {
-                <div class="uk-margin">
-                    <div class="uk-inline">
-                        <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
-                        <input class="uk-input" type="text" name="Name">
+@*<h2 class="uk-heading-bullet">Add new room</h2>
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                @using (Ajax.BeginForm("Create", new AjaxOptions { UpdateTargetId = "results" }))
+                {
+                    <div class="uk-margin">
+                        <div class="uk-inline">
+                            <a class="uk-form-icon" href="#" uk-icon="icon: pencil" uk-tooltip="title:Enter Room Name; pos: top-left"></a>
+                            <input class="uk-input" type="text" name="Name">
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="uk-button uk-button-primary">Create</button>
-                <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
-            }
+                    <button type="submit" class="uk-button uk-button-primary">Create</button>
+                    <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
+                }
+            </div>
         </div>
+    </div>*@
+
+<div id="modal-sections-room" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add new room</h2>
+        </div>
+        <div class="uk-modal-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        @using (Ajax.BeginForm("Create", new AjaxOptions { UpdateTargetId = "results" }))
+        {
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <a class="uk-form-icon" href="#" uk-icon="icon: pencil" uk-tooltip="title:Enter Room Name; pos: top-left"></a>
+                    <input class="uk-input" type="text" name="Name">
+                </div>
+            </div>
+            <button type="submit" class="uk-button uk-button-primary">Create</button>
+            <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
+        }
     </div>
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

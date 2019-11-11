@@ -30,7 +30,7 @@ namespace MySmartApp.Controllers
         }
 
         // GET: DevicesViewModels/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string data = null)
         {
             if (id == null)
             {
@@ -51,6 +51,11 @@ namespace MySmartApp.Controllers
             ViewBag.Status = devices[0].DeviceStatus == 0 ? "Turn Off" : "Turn On";
             ViewBag.Value = devices[0].DeviceStatus == 0 ? 1 : 0;
             model.Schedules = schedules.Where(i => i.DeviceName == devices[0].DeviceName).ToList();
+            if (data != null)
+            {
+                ViewBag.Success = "Success";
+                return View(model);
+            }
             return View(model);
         }
 
@@ -79,7 +84,7 @@ namespace MySmartApp.Controllers
             if (ModelState.IsValid)
             {
                 var room = db.Rooms.Where(_ => _.Name == devicesViewModel.Rooms).ToList();
-                if (room != null)
+                if (room.Count != 0)
                 {
                     devicesViewModel.LastPinDate = DateTime.Now;
                     devicesViewModel.RoomId = room[0].Id;
@@ -145,10 +150,18 @@ namespace MySmartApp.Controllers
                 await mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic("device/led").Build());
                 await mqttClient.PublishAsync("device/led", Encoding.UTF8.GetBytes(status.ToString()));
             }
-            var filter = Builders<BsonDocument>.Filter.Eq("Name", "Light");
-            var update = Builders<BsonDocument>.Update.Set("Value", status);
-            var result = await dbContext.DeviceCollection.UpdateOneAsync(filter, update);
-            return Redirect(Request.UrlReferrer.ToString());
+            await Task.Delay(1500);
+            var listMongo = dbContext.DeviceCollection.Find(new BsonDocument()).ToList();
+            var led = listMongo[2].Values.ToList();
+            if (led[3].ToString() == "success")
+            {
+                var filter = Builders<BsonDocument>.Filter.Eq("Name", "Light");
+                var update = Builders<BsonDocument>.Update.Set("Value", status);
+                var result = await dbContext.DeviceCollection.UpdateOneAsync(filter, update);
+                return RedirectToAction("Details", "Devices", new { id });
+            }
+
+            return Redirect("");
         }
 
         // GET: DevicesViewModels/Delete/5
@@ -163,7 +176,9 @@ namespace MySmartApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(devicesViewModel);
+            db.Devices.Remove(devicesViewModel);
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // POST: DevicesViewModels/Delete/5
