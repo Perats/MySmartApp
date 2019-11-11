@@ -3,46 +3,147 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true">
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true;autoplay: true">
 
-        <ul class="uk-slider-items uk-grid" >
-            <li class="uk-width-3-4">
-                <div class="uk-panel">
-                    <img src="~/Content/Login/images/sliser_smart9.jpg" alt="">
-                    <div class="uk-position-center uk-panel"></div>
-                </div>
-            </li>
-            <li class="uk-width-3-4">
-                <div class="uk-panel">
-                    <img src="~/Content/Login/images/slider_smart5.jpg" alt="">
-                    <div class="uk-position-center uk-panel"></div>
-                </div>
-            </li>
-            <li class="uk-width-3-4">
-                <div class="uk-panel">
-                    <img src="~/Content/Login/images/slider_smart3.jpg" alt="">
-                    <div class="uk-position-center uk-panel"></div>
-                </div>
-            </li>
-            <li class="uk-width-3-4">
-                <div class="uk-panel">
-                    <img src="~/Content/Login/images/slider_smart7.jpg" alt="">
-                    <div class="uk-position-center uk-panel"></div>
-                </div>
-            </li>
-            <li class="uk-width-3-4">
-                <div class="uk-panel">
-                    <img src="~/Content/Login/images/slider_smart10.jpg" alt="">
-                    <div class="uk-position-center uk-panel"></div>
-                </div>
-            </li>
-        </ul>
+    <ul class="uk-slider-items uk-grid">
+        <li class="uk-width-3-4">
+            <div class="uk-panel">
+                <img src="~/Content/Login/images/sliser_smart9.jpg" alt="">
+                <div class="uk-position-center uk-panel"></div>
+            </div>
+        </li>
+        <li class="uk-width-3-4">
+            <div class="uk-panel">
+                <img src="~/Content/Login/images/slider_smart5.jpg" alt="">
+                <div class="uk-position-center uk-panel"></div>
+            </div>
+        </li>
+        <li class="uk-width-3-4">
+            <div class="uk-panel">
+                <img src="~/Content/Login/images/slider_smart3.jpg" alt="">
+                <div class="uk-position-center uk-panel"></div>
+            </div>
+        </li>
+        <li class="uk-width-3-4">
+            <div class="uk-panel">
+                <img src="~/Content/Login/images/slider_smart7.jpg" alt="">
+                <div class="uk-position-center uk-panel"></div>
+            </div>
+        </li>
+        <li class="uk-width-3-4">
+            <div class="uk-panel">
+                <img src="~/Content/Login/images/slider_smart10.jpg" alt="">
+                <div class="uk-position-center uk-panel"></div>
+            </div>
+        </li>
+    </ul>
 
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
-    </div>
+</div>
 @Html.Partial("~/Views/Devices/Index.cshtml")
 
+<div id="modal-sections-room" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add new room</h2>
+        </div>
+        <div class="uk-modal-body">
+            @using (Ajax.BeginForm("Create", "Rooms", new AjaxOptions { UpdateTargetId = "results" }))
+            {
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text" style="padding-right: 100px;">Enter your Room name</label>
+                    <div class="uk-inline">
+                        <a class="uk-form-icon" href="#" uk-icon="icon: pencil" uk-tooltip="title:Enter Room Name; pos: top-left"></a>
+                        <input class="uk-input" id="form-horizontal-text" type="text" name="Name">
+                    </div>
+                </div>
+                <button type="submit" class="uk-button uk-button-primary">Create</button>
+                <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="modal-sections-schedule" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add new room</h2>
+        </div>
+        <div class="uk-modal-body">
+            @using (Ajax.BeginForm("Create", "Schedules", null, new AjaxOptions { UpdateTargetId = "results" }, htmlAttributes: new { @class = "uk-form-horizontal .uk-form-width-medium" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Your schedule name</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input uk-form-width-medium" type="text" name="ScheduleName">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-select">Select Room</label>
+                    <div class="uk-form-controls">
+                        @Html.DropDownList("DeviceName", ((List<string>)ViewBag.Devices).Select(m => new SelectListItem { Text = m, Value = m }), htmlAttributes: new { @class = "uk-select uk-form-width-medium" })
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Start Date</label>
+                    <div class="uk-form-controls">
+                        @Html.TextBox("StartDate", null, new { @type = "date", @class = "form-control datepicker" })
+
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">End Date</label>
+                    <div class="uk-form-controls">
+                        @Html.TextBox("EndDate", null, new { @type = "date", @class = "form-control datepicker" })
+
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Is Active</label>
+                    <div class="uk-form-controls">
+                        @Html.CheckBox("IsActive", new { onchage = "this.checked", @class = "uk-checkbox" })
+                    </div>
+                </div>
+                <button type="submit" class="uk-button uk-button-primary">Create</button>
+                <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="modal-sections-device" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add new room</h2>
+        </div>
+        <div class="uk-modal-body">
+            @using (Ajax.BeginForm("Create","Devices", null, new AjaxOptions { UpdateTargetId = "results" }, htmlAttributes: new { @class = "uk-form-horizontal .uk-form-width-medium" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Your device name</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input uk-form-width-medium" type="text" name="DeviceName">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-select">Select Room</label>
+                    <div class="uk-form-controls">
+                        @Html.DropDownList("Rooms", ((List<string>)ViewBag.Rooms).Select(m => new SelectListItem { Text = m, Value = m }), htmlAttributes: new { @class = "uk-select uk-form-width-medium" })
+                    </div>
+                </div>
+                <button type="submit" class="uk-button uk-button-primary">Create</button>
+                <a class="uk-button uk-button-danger" href="@Url.Action("Index", "Home")">Cancel</a>
+            }
+        </div>
+    </div>
+</div>
+
 @*@Html.Partial("~/Views/Schedules/Index.cshtml")
-<div class="row"></div>*@
+    <div class="row"></div>*@

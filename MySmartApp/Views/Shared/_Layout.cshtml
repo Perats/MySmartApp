@@ -20,7 +20,7 @@
     <script src="~/Content/js/uikit.min.js"></script>
 
 </head>
-<body class="uk-background-center">
+<body>
     <header>
         <nav class="uk-navbar-container uk-margin" uk-navbar>
             <div class="uk-navbar-left">
@@ -28,26 +28,35 @@
 
                 <ul class="uk-navbar-nav">
                     <li>
-                        <a href="#">
-                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                        <a href="#" style="font-size: 20px;">
+                            <span class="uk-icon uk-margin-right" uk-icon="icon: star"></span>
                             Features
                         </a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
-                                <li class="uk-active">@Html.ActionLink("Create New Room", "Create", "Rooms")</li>
-                                <li>@Html.ActionLink("Create New Schedule", "Create", "Schedules")</li>
-                                <li>@Html.ActionLink("Create New Device", "Create", "Devices")</li>
+                                <li class="uk-active">
+                                    <a href="#modal-sections-room" uk-toggle>Create New Room</a>
+                                @*@Html.ActionLink("Create New Room", "Create", "Rooms")*@
+                                </li>
+                                <li>
+                                    <a href="#modal-sections-schedule" uk-toggle>Create New Schedule</a>
+                                @*@Html.ActionLink("Create New Schedule", "Create", "Schedules")*@
+                                </li>
+                                <li>
+                                    <a href="#modal-sections-device" uk-toggle>Create New Device</a>
+                                    @*@Html.ActionLink("Create New Device", "Create", "Devices")*@
+                                </li>
                             </ul>
                         </div>
                     </li>
                     @foreach (var item in Model.Rooms)
                     {
-                    <li>
-                        <a href="@Url.Action("Details", "Rooms", new { id = item.Id }, null)">
-                            <span class="uk-icon uk-margin-small-right"></span>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </a>
-                    </li>
+                        <li>
+                            <a href="@Url.Action("Details", "Rooms", new { id = item.Id }, null)" style="font-size: 20px;">
+                                <span class="uk-icon uk-margin-right"></span>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </a>
+                        </li>
                     }
                 </ul>
             </div>
@@ -57,12 +66,11 @@
                     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                     {
                         @Html.AntiForgeryToken()
-
                         <ul class="uk-navbar-nav navbar-right">
                             <li>
-                                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", style=" font-size: 20px;" })
                             </li>
-                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()" style="font-size: 20px;">Log off</a></li>
                         </ul>
                     }
                 }
@@ -76,15 +84,16 @@
             </div>
         </nav>
     </header>
-    <div class="uk-container">
+    @*@Html.Partial("_LeftBar")*@
+<div class="uk-container uk-container-expand">
 
+    @RenderBody()
 
-        
-
-
-
-        @RenderBody()
-    </div>
+    <footer class="uk-section uk-section-small uk-text-center">
+        <hr>
+        <p class="uk-text-small uk-text-center">© @DateTime.Now.Year IT Academy Team - Built with <a href="http://getuikit.com" title="Visit UIkit 3 site" target="_blank" data-uk-tooltip><span data-uk-icon="uikit"></span></a></p>
+    </footer>
+</div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

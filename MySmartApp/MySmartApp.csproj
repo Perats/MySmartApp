@@ -295,6 +295,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\dashboard.css" />
     <Content Include="Content\css\uikit-rtl.css" />
     <Content Include="Content\css\uikit-rtl.min.css" />
     <Content Include="Content\css\uikit.css" />
@@ -489,6 +490,7 @@
     <Content Include="Views\Schedules\Details.cshtml" />
     <Content Include="Views\Schedules\Edit.cshtml" />
     <Content Include="Views\Schedules\Index.cshtml" />
+    <Content Include="Views\Shared\_LeftBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
